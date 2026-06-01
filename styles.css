@@ -183,6 +183,7 @@ nav.scrolled{
   gap:10px;
   opacity:0;
   animation:fadeUp .8s .3s forwards;
+  padding-top: 75px;
 }
 .hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--amber);}
 
@@ -195,11 +196,12 @@ nav.scrolled{
   z-index:2;
   opacity:0;
   animation:fadeUp .9s .5s forwards;
+  padding-top: 30px;
 }
 .hero-headline .solid{display:block;color:var(--offwhite);}
 .hero-headline .outline{
   display:block;
-  -webkit-text-stroke:2px var(--amber);
+  -webkit-text-stroke:1px var(--amber);
   color:transparent;
 }
 
@@ -780,7 +782,7 @@ section{padding:10vh 6vw;position:relative;overflow:hidden;}
 .form-input::placeholder{color:rgba(244,240,232,.2);}
 .form-select option{background:var(--mid);color:var(--offwhite);}
 
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+
 
 .form-submit{
   width:100%;
