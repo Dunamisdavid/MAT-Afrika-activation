@@ -944,3 +944,79 @@ footer{
   section{padding:8vh 5vw;}
   nav{padding:0 5vw;}
 }
+
+
+/* ════════════════════════════════════════
+   MOBILE FIXES — Additional breakpoints
+════════════════════════════════════════ */
+
+/* Edition header: stack on tablet and below */
+@media(max-width:900px){
+  .edition-header{
+    grid-template-columns: 1fr;
+  }
+  .edition-meta{
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+  .edition-meta span{ margin-top: 0 !important; }
+}
+
+/* Audience heading: reduce size on mobile */
+@media(max-width:600px){
+  #audience .sec-title{
+    font-size: clamp(2rem, 8vw, 3rem) !important;
+  }
+  .reg-free .free-word{
+    font-size: 3.5rem;
+  }
+  .hero-headline{
+    font-size: clamp(4rem, 18vw, 6rem);
+  }
+  .about-grid{
+    gap: 3rem;
+  }
+  .editions-grid{
+    grid-template-columns: 1fr;
+  }
+  .edition-meta{
+    flex-direction: column;
+    gap: .8rem;
+  }
+  .day-card{
+    padding: 2rem 1.5rem;
+  }
+  .build-grid{
+    grid-template-columns: 1fr;
+  }
+  .reg-form{
+    padding: 1.5rem;
+  }
+  .footer-bottom{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Tablet-specific tweaks */
+@media(min-width:601px) and (max-width:900px){
+  .days-grid{
+    grid-template-columns: 1fr;
+  }
+  .build-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .hero-headline{
+    font-size: clamp(4.5rem, 12vw, 7rem);
+  }
+  .edition-meta{
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+}
