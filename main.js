@@ -95,30 +95,28 @@ document.querySelectorAll('.form-input, .form-select').forEach(el => {
    4. Replace GOOGLE_FORM_ID and the entry IDs below
    ───────────────────────────────────────────── */
 
-const GOOGLE_FORM_ID   = 'YOUR_FORM_ID';  // ← Replace with your actual form ID
+const GOOGLE_FORM_ID = '1FAIpQLScBULvD-YMe4cfycVzPclHwOYCaDGrm9JA9gaQiO6MosKQ17Q';
 
 const FORM_ENTRY_IDS = {
-  name:     'entry.XXXXXXXXX',  // ← Replace with your Full Name entry ID
-  email:    'entry.XXXXXXXXX',  // ← Replace with your Email entry ID
-  whatsapp: 'entry.XXXXXXXXX',  // ← Replace with your WhatsApp entry ID
-  segment:  'entry.XXXXXXXXX',  // ← Replace with your Segment entry ID
-  location: 'entry.XXXXXXXXX',  // ← Replace with your Location entry ID
+  name: 'entry.112382292',   // Full Name
+  email:     'entry.187831532',   // Email Address
+  whatsapp:  'entry.542472842',   // WhatsApp Number
+  segment:   'entry.91712470',    // I am a...
+  location:  'entry.1041890123',  // State / City
 };
 
 function submitForm() {
-  const firstName = document.getElementById('firstName').value.trim();
-  const lastName  = document.getElementById('lastName').value.trim();
+  const name = document.getElementById('name').value.trim();
   const email     = document.getElementById('email').value.trim();
   const whatsapp  = document.getElementById('whatsapp').value.trim();
   const segment   = document.getElementById('segment').value;
   const location  = document.getElementById('location').value.trim();
 
   /* Validate — highlight missing fields and stop */
-  const hasErrors = !firstName || !lastName || !email || !whatsapp || !segment || !location;
+  const hasErrors = !name || !email || !whatsapp || !segment || !location;
 
   highlightErrors([
-    { id: 'firstName', value: firstName },
-    { id: 'lastName',  value: lastName  },
+    { id: 'name', value: name },
     { id: 'email',     value: email     },
     { id: 'whatsapp',  value: whatsapp  },
     { id: 'segment',   value: segment   },
@@ -127,29 +125,46 @@ function submitForm() {
 
   if (hasErrors) return;
 
-  /* Build Google Forms submission URL */
-  const formUrl = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`;
+  /* ── Create a hidden iframe to absorb Google's redirect response */
+  let iframe = document.getElementById('_gf_sink');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.id   = '_gf_sink';
+    iframe.name = '_gf_sink';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
 
-  const formData = new FormData();
-  formData.append(FORM_ENTRY_IDS.name,     `${firstName} ${lastName}`);
-  formData.append(FORM_ENTRY_IDS.email,    email);
-  formData.append(FORM_ENTRY_IDS.whatsapp, whatsapp);
-  formData.append(FORM_ENTRY_IDS.segment,  segment);
-  formData.append(FORM_ENTRY_IDS.location, location);
+  /* ── Build a temporary form that POSTs into the hidden iframe.
+        This is a native browser form POST — not fetch() — so it
+        bypasses CORS restrictions entirely. Google Forms accepts it. */
+  const tempForm = document.createElement('form');
+  tempForm.method = 'POST';
+  tempForm.action = `https://docs.google.com/forms/d/e/${GOOGLE_FORM_ID}/formResponse`;
+  tempForm.target = '_gf_sink';
+  tempForm.style.display = 'none';
 
-  /*
-    Submit to Google Forms using no-cors mode.
-    Note: Google Forms does not allow CORS, so fetch() will always
-    throw a network error — this is expected and harmless.
-    The form submission goes through regardless.
-  */
-  fetch(formUrl, {
-    method: 'POST',
-    mode:   'no-cors',
-    body:   formData,
-  }).catch(() => {});
+  const fields = {
+    [FORM_ENTRY_IDS.name]:     name,
+    [FORM_ENTRY_IDS.email]:    email,
+    [FORM_ENTRY_IDS.whatsapp]: whatsapp,
+    [FORM_ENTRY_IDS.segment]:  segment,
+    [FORM_ENTRY_IDS.location]: location,
+  };
 
-  /* Show success state */
+  Object.entries(fields).forEach(([name, value]) => {
+    const input = document.createElement('input');
+    input.type  = 'hidden';
+    input.name  = name;
+    input.value = value;
+    tempForm.appendChild(input);
+  });
+
+  document.body.appendChild(tempForm);
+  tempForm.submit();
+  document.body.removeChild(tempForm);
+
+  /* Show success state immediately — iframe absorbs Google's redirect */
   showSuccess();
 }
 
