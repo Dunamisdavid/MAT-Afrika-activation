@@ -183,7 +183,7 @@ nav.scrolled{
   gap:10px;
   opacity:0;
   animation:fadeUp .8s .3s forwards;
-   padding-top: 60px;
+   padding-top: 40px;
 }
 .hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--amber);}
 
