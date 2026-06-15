@@ -183,7 +183,6 @@ nav.scrolled{
   gap:10px;
   opacity:0;
   animation:fadeUp .8s .3s forwards;
-  padding-top: 75px;
 }
 .hero-eyebrow::before{content:'';width:28px;height:1.5px;background:var(--amber);}
 
@@ -196,12 +195,11 @@ nav.scrolled{
   z-index:2;
   opacity:0;
   animation:fadeUp .9s .5s forwards;
-  padding-top: 30px;
 }
 .hero-headline .solid{display:block;color:var(--offwhite);}
 .hero-headline .outline{
   display:block;
-  -webkit-text-stroke:1px #9333EA;
+  -webkit-text-stroke:2px #9333EA;
   color:transparent;
 }
 
@@ -298,7 +296,7 @@ section{padding:10vh 6vw;position:relative;overflow:hidden;}
   font-weight:700;
   letter-spacing:.28em;
   text-transform:uppercase;
-  color:rgba(147, 51, 234, 0.04;
+  color:#9333EA;
   display:flex;
   align-items:center;
   gap:10px;
@@ -409,7 +407,7 @@ section{padding:10vh 6vw;position:relative;overflow:hidden;}
   display:inline-flex;
   align-items:center;
   gap:8px;
-  background:#9333EA;
+  background:var(--amber);
   color:var(--black);
   font-size:.62rem;
   font-weight:800;
@@ -566,9 +564,9 @@ section{padding:10vh 6vw;position:relative;overflow:hidden;}
   transition:all .2s;
 }
 .tool-chip:hover{
-  border-color:rgba(147,51,234,0.25);
-  color:rgba(147,51,234,0.75);
-  background:rgba(147,51,234,0.04);
+  border-color:rgba(232,160,32,.6);
+  color:var(--amber);
+  background:rgba(232,160,32,.08);
 }
 
 /* ════════════════════════════════════════
@@ -782,7 +780,7 @@ section{padding:10vh 6vw;position:relative;overflow:hidden;}
 .form-input::placeholder{color:rgba(244,240,232,.2);}
 .form-select option{background:var(--mid);color:var(--offwhite);}
 
-
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 
 .form-submit{
   width:100%;
@@ -1022,3 +1020,46 @@ footer{
     gap: 1.5rem;
   }
 }
+
+
+/* ════════════════════════════════════════
+   EDITION 02 — Design with AI
+   Purple accent overrides
+════════════════════════════════════════ */
+
+/* Hero outline word — purple for Edition 02 */
+.hero-headline .outline{
+  -webkit-text-stroke:2px #9333EA;
+  color:transparent;
+}
+
+/* Eyebrow accent */
+.sec-eyebrow{ color:#9333EA; }
+.sec-eyebrow::before{ background:#9333EA; }
+
+/* Edition tag */
+.edition-tag{ background:#9333EA; }
+
+/* Tool chips — purple tint */
+.tool-chip{
+  border-color:rgba(147,51,234,0.25);
+  color:rgba(147,51,234,0.75);
+  background:rgba(147,51,234,0.04);
+}
+.tool-chip:hover{
+  border-color:rgba(147,51,234,0.6);
+  color:#9333EA;
+  background:rgba(147,51,234,0.08);
+}
+
+/* Nav eyebrow stays amber */
+.hero-eyebrow{ color:var(--amber); }
+.hero-eyebrow::before{ background:var(--amber); }
+
+/* Keep about section eyebrow green */
+#about .sec-eyebrow{ color:var(--green); }
+#about .sec-eyebrow::before{ background:var(--green); }
+
+/* Keep audience eyebrow black */
+#audience .sec-eyebrow{ color:var(--black); }
+#audience .sec-eyebrow::before{ background:var(--black); }
